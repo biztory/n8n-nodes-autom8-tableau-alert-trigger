@@ -3,7 +3,7 @@
 	"version": "0.4.0",
 	"description": "Autom8 Tableau Alert Trigger node for n8n. Polls a Tableau view or datasource on a schedule and fires when a configured condition is met.",
 	"license": "MIT",
-	"homepage": "https://www.biztory.com",
+	"homepage": "https://autom8.biztory.com",
 	"keywords": [
 		"n8n-community-node-package",
 		"tableau",
