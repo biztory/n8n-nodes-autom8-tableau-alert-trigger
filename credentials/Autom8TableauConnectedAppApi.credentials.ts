@@ -28,12 +28,14 @@ function signJwt(credentials: {
 	const header = base64url(
 		JSON.stringify({ alg: 'HS256', kid: credentials.secretId, iss: credentials.clientId }),
 	);
+	const now = Math.floor(Date.now() / 1000);
 	const payload = base64url(
 		JSON.stringify({
 			iss: credentials.clientId,
 			sub: credentials.username,
 			aud: 'tableau',
-			exp: Math.floor(Date.now() / 1000) + 600,
+			iat: now,
+			exp: now + 300,
 			jti: randomUUID(),
 			scp: scopeList,
 		}),
