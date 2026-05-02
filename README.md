@@ -2,7 +2,8 @@
 
 n8n community node that polls a **Tableau** view or published datasource on a schedule and fires a workflow when a configured condition is met (any rows returned, row count threshold, etc.).
 
-ℹ️ Full documentation: https://biztory.atlassian.net/wiki/spaces/A8/pages/1123254273/n8n+Node
+📚 Full documentation: https://biztory.atlassian.net/wiki/spaces/A8/pages/1123254273/n8n+Node
+ℹ️ More information: https://autom8.biztory.com
 
 ## Installation
 
