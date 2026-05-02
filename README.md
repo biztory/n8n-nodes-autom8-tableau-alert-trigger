@@ -17,7 +17,7 @@ Follow the [installation guide](https://docs.n8n.io/integrations/community-nodes
 
 ## Compatibility
 
-Tested and supported starting with n8n version **2.13.3**.
+Tested and supported starting with n8n version **2.18.5**.
 
 ## Resources
 
