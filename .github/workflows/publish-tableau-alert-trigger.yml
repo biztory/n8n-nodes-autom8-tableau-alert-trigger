@@ -1,0 +1,46 @@
+# Publishes @biztory/n8n-nodes-autom8-tableau-alert-trigger to npm whenever a
+# tag of the form `tableau-alert-trigger/X.Y.Z` is pushed.
+#
+# See publish-tableau-action-trigger.yml for the rationale, OIDC setup, and
+# release process — the steps are identical other than the package directory
+# and tag namespace.
+
+name: Publish tableau-alert-trigger
+
+on:
+  push:
+    tags:
+      - 'tableau-alert-trigger/*.*.*'
+
+jobs:
+  publish:
+    name: Publish to npm
+    runs-on: ubuntu-latest
+
+    permissions:
+      id-token: write
+      contents: read
+
+    defaults:
+      run:
+        working-directory: packages/tableau-alert-trigger
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 'lts/*'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+        working-directory: ${{ github.workspace }}
+
+      - name: Release
+        run: |
+          [ -n "$NPM_TOKEN" ] && npm config set //registry.npmjs.org/:_authToken "$NPM_TOKEN"
+          npm run release
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
