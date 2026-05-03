@@ -42,12 +42,6 @@
             "dist/nodes/Autom8TableauAlertTrigger/Autom8TableauAlertTrigger.node.js"
         ]
     },
-    "release-it": {
-        "git": {
-            "tagName": "tableau-alert-trigger/${version}",
-            "commitMessage": "Release tableau-alert-trigger ${version}"
-        }
-    },
     "devDependencies": {
         "@n8n/node-cli": "*",
         "eslint": "9.32.0",
