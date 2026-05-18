@@ -1,4 +1,5 @@
 import {
+	IHookFunctions,
 	IPollFunctions,
 	INodeType,
 	INodeTypeDescription,
@@ -211,6 +212,20 @@ export class Autom8TableauAlertTrigger implements INodeType {
 				],
 			},
 		],
+	};
+
+	webhookMethods = {
+		default: {
+			async checkExists(this: IHookFunctions): Promise<boolean> {
+				return true;
+			},
+			async create(this: IHookFunctions): Promise<boolean> {
+				return true;
+			},
+			async delete(this: IHookFunctions): Promise<boolean> {
+				return true;
+			},
+		},
 	};
 
 	async poll(this: IPollFunctions): Promise<INodeExecutionData[][] | null> {
