@@ -1,4 +1,4 @@
-import type { IDataObject, IHttpRequestOptions } from 'n8n-workflow';
+import type { IDataObject, IHttpRequestOptions, INode } from 'n8n-workflow';
 
 export interface TableauCredentials {
 	serverUrl: string;
@@ -24,4 +24,5 @@ export interface TableauAuthToken {
 export interface TableauRequestContext {
 	helpers: { httpRequest(options: IHttpRequestOptions): Promise<unknown> };
 	getWorkflowStaticData(type: 'global' | 'node'): IDataObject;
+	getNode(): INode;
 }

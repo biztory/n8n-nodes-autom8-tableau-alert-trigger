@@ -1,5 +1,6 @@
 import { createHmac, randomUUID } from 'crypto';
-import type { IDataObject, IHttpRequestOptions } from 'n8n-workflow';
+import { NodeApiError } from 'n8n-workflow';
+import type { IDataObject, IHttpRequestOptions, JsonObject } from 'n8n-workflow';
 import type { TableauAuthToken, TableauCredentials, TableauRequestContext } from './types';
 
 const TABLEAU_AUTH_CACHE_KEY = 'autom8TableauAlertTriggerAuth';
@@ -71,8 +72,12 @@ async function authenticate(
 		})) as typeof response;
 	} catch (error) {
 		const tableau = parseTableauError(error);
-		if (tableau) throw new Error(`Tableau sign-in failed — ${buildTableauErrorMessage(tableau)}`);
-		throw new Error(`Tableau sign-in request failed: ${(error as Error).message ?? error}`);
+		if (tableau) {
+			throw new NodeApiError(context.getNode(), error as JsonObject, {
+				message: `Tableau sign-in failed — ${buildTableauErrorMessage(tableau)}`,
+			});
+		}
+		throw new NodeApiError(context.getNode(), error as JsonObject);
 	}
 
 	return {
@@ -165,7 +170,9 @@ async function withAuthRetry<T>(
 				authToken = await getAuthToken(context, credentials);
 				return await makeRequest(authToken);
 			}
-			throw new Error(buildTableauErrorMessage(tableau));
+			throw new NodeApiError(context.getNode(), error as JsonObject, {
+				message: buildTableauErrorMessage(tableau),
+			});
 		}
 		throw error;
 	}
